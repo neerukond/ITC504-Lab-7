@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Libs Format</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('Mad_lib.jpg') center center fixed; 
+            background-size: cover;
+            color: white;
+        }
+
+        h1 {
+            color: yellowgreen;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: maroon; 
+        }
+
+        input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: red; 
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #madLibResult {
+            color: blue;
+            text-align: center;
+        }
+
+        /* Addendum Styles */
+        .addendum {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .addendum h2 {
+            color: maroon;
+        }
+
+        .addendum p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1><u>Mad</u> <u>Libs</u> <u>Format</u></h1>
+    <form id="madLibForm">
+        <label for="adverb">Adverb:</label>
+        <input type="text" id="adverb" name="adverb" required>
+
+        <label for="pluralNoun">Plural Noun:</label>
+        <input type="text" id="pluralNoun" name="pluralNoun" required>
+
+        <label for="verb">Verb:</label>
+        <input type="text" id="verb" name="verb" required>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective" required>
+
+        <label for="noun">Noun (singular):</label>
+        <input type="text" id="noun" name="noun" required>
+
+        <button type="button" onclick="generateMadLib()">Generate Mad Lib</button>
+    </form>
+
+    <div id="madLibResult"></div>
+
+    <footer>
+        <p>Last updated: 
+            <span id="lastModified"></span>
+        </p>
+    </footer>
+
+    <!-- Addendum section -->
+    <div class="addendum">
+        <h2>Addendum</h2>
+        <p>
+            This HTML document serves as a template for creating a Mad Libs game. Users can input various words based on specific criteria such as adverb, plural noun, verb, adjective, and noun. The provided JavaScript function randomly selects a sentence template from an array and fills in the user-provided words to generate a unique Mad Lib.
+        </p>
+        <p>
+            Additionally, the footer displays the last modified date of the document, providing users with information about the document's latest update.
+        </p>
+        <p>
+            The creation process involved careful consideration of user experience principles to ensure accessibility and usability across different devices and screen sizes. Responsive design techniques were implemented to optimize the layout and readability of the Mad Libs game on both desktop and mobile platforms.
+        </p>
+        <p>
+            Furthermore, the use of semantic HTML elements enhances the document's structure and search engine optimization (SEO), making it easier for search engines to index and rank the content. By adhering to web standards and best practices, this template promotes compatibility and interoperability across various web browsers.
+        </p>
+        <p>
+            It's important to note that while this template provides a solid foundation for creating Mad Libs games, there's ample room for customization and expansion. Developers can incorporate additional features such as themed templates, multiplayer functionality, or integration with external APIs to enrich the user experience and extend the game's capabilities.
+        </p>
+        <p>
+            In summary, this Mad Libs template offers a versatile solution for developers interested in creating interactive and engaging word-based games. Whether used for educational purposes, entertainment, or creative expression, the possibilities are endless with this customizable and user-friendly template.
+        </p>
+    </div>
+
+    <script>
+        const madLibSentences = [
+            "Long ago, there lived a ${adjective} ${noun} who enjoyed ${verb} beneath the moon's glow. One day, they stumbled upon a chest filled with ${pluralNoun} and chose to ${adverb} share the discovery with the world.",
+            "In a distant realm, a ${adjective} princess patiently waited in her tower for a courageous knight to ${verb} and free her from the grasp of the ${noun}. Little did she know, the knight harbored a fear of ${pluralNoun}!",
+            "The skilled ${adjective} sorcerer enchanted a ${noun} into a ${pluralNoun} with a graceful wave of the wand. The entire realm marveled at the enchanting ${adverb} transformation.",
+            "On a radiant day, a band of ${pluralNoun} resolved to ${verb} to the peak of the ${adjective} mountain. The scenery was awe-inspiring, and they chuckled ${adverb} while relishing their escapade.",
+            "Perched on the windowsill, the ${adjective} cat observed the world outside. Suddenly, it spied a ${noun} and playfully ${verb} through the open window, causing a joyous commotion.",
+            "In an advanced era, ${pluralNoun} had developed ${adjective} capabilities. They could ${verb} at remarkable speeds and communicate using ${adverb} cutting-edge technology."
+        ];
+
+        function generateMadLib() {
+            const adverb = document.getElementById('adverb').value;
+            const pluralNoun = document.getElementById('pluralNoun').value;
+            const verb = document.getElementById('verb').value;
+            const adjective = document.getElementById('adjective').value;
+            const noun = document.getElementById('noun').value;
+
+            if (adverb && pluralNoun && verb && adjective && noun) {
+                const randomIndex = Math.floor(Math.random() * madLibSentences.length);
+                const madLibSentence = madLibSentences[randomIndex];
+
+                const madLib = madLibSentence
+                    .replace("${adverb}", adverb)
+                    .replace("${pluralNoun}", pluralNoun)
+                    .replace("${verb}", verb)
+                    .replace("${adjective}", adjective)
+                    .replace("${noun}", noun);
+
+                document.getElementById('madLibResult').innerHTML = `<h2>Result of your Mab Lib:</h2><p>${madLib}</p>`;
+
+                document.getElementById('madLibForm').reset();
+            } else {
+                alert("Please fill in all the fields before generating the Mad Lib.");
+            }
+        }
+
+        var x = document.lastModified;
+        document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
